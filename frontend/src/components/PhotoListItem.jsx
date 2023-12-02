@@ -1,15 +1,22 @@
 import React from "react";
 import PhotoFavButton from './PhotoFavButton';
+import { useGlobalContext } from '../App';
 import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = ({data}) => {
   const { id, location, urls, user } = data;
-  const { full: imageSource, regular } = urls;
+  const { full: imageSource } = urls;
   const { username, profile } = user;
+  const { state, dispatch } = useGlobalContext();
+  const isLiked = state.likedPhotoIDs.includes(id);
+
+  const handleLikeToggle = () => {
+    dispatch({ type: 'TOGGLE_LIKE', payload: id });
+  };
 
   return (
   <div className="photo-list__item">
-    <PhotoFavButton />
+    <PhotoFavButton photoId={id} onClick={handleLikeToggle} isLiked={isLiked}/>
     <img src={imageSource} className="photo-list__image" />
     <div className="photo-list__user-info">
       <img src={profile} className="photo-list__user-profile" />

@@ -1,12 +1,21 @@
 import React from 'react';
 import FavIcon from './FavIcon';
+import { useGlobalContext } from '../App';
 
 import '../styles/FavBadge.scss';
 
-const FavBadge = ({ isFavPhotoExist }) => {
+const FavBadge = () => {
+  const { state } = useGlobalContext();
+  const { likedPhotosCount } = state;
+
   return (
     <div className='fav-badge'>
-      <FavIcon displayAlert={!!isFavPhotoExist}/>
+      <FavIcon displayAlert={likedPhotosCount > 0} />
+      {likedPhotosCount > 0 && (
+        <div className='fav-badge__count'>
+          <span>{likedPhotosCount}</span>
+        </div>
+      )}
     </div>
   ) 
 };

@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-
+import React from 'react';
+import { useGlobalContext } from '../App';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton() {
-  const [selected, setSelected] = useState(false);
-  const [displayAlert, setDisplayAlert] = useState(false);
+function PhotoFavButton({photoId}) {
+  const { state, dispatch } = useGlobalContext();
+  const { likedPhotoIDs } = state;
+
+  const isLiked = likedPhotoIDs.includes(photoId);
 
   const handleClick = () => {
-    setSelected(!selected);
-    setDisplayAlert(true);
-    console.log(`User clicked the Like button`)
-  }
+    dispatch({ type: 'TOGGLE_LIKE', payload: photoId });
+  };
+
   return (
     <div className="photo-list__fav-icon" onClick={handleClick}>
       <div className="photo-list__fav-icon-svg">
-        <FavIcon selected={selected} displayAlert={displayAlert} />
+        <FavIcon selected={isLiked} />
       </div>
     </div>
   );
