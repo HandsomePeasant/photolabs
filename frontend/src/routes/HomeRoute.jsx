@@ -1,13 +1,14 @@
 import React from 'react';
-
+import App from '../App';
 import '../styles/HomeRoute.scss';
 
 const HomeRoute = () => {
   return (
     <div className="home-route">
-      {/* Insert React */}
+      <App/>
     </div>
   );
 };
 
 export default HomeRoute;
+
