@@ -1,7 +1,5 @@
 import React, { createContext, useReducer, useContext } from 'react';
-import PhotoList from './components/PhotoList';
-import TopNavigation from './components/TopNavigationBar';
-import photos from './mocks/photos';
+import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import './App.scss';
 
@@ -69,11 +67,10 @@ const AppContent = () => {
   const { state } = useGlobalContext();
 
   return (
-      <div className="App">
-        <TopNavigation />
-        <PhotoList data={photos} />
-        {state.isModalOpen && <PhotoDetailsModal />}
-      </div>
+    <div>
+      <HomeRoute />
+      {state.isModalOpen && <PhotoDetailsModal />}
+    </div>
   );
 };
 
