@@ -1,43 +1,78 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGlobalContext, closeModal } from '../App';
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
+import PhotoList from '../components/PhotoList';
+import PhotoFavButton from '../components/PhotoFavButton';
 
 const PhotoDetailsModal = () => {
   const { state, dispatch } = useGlobalContext();
-  const { selectedPhoto } = state;
+  const { isModalOpen, selectedPhoto } = state;
+  const similarPhotos = Object.values(selectedPhoto.similar_photos);
+
+  useEffect(() => {
+    const photoList = document.querySelector('.photo-list');
+    
+    if (isModalOpen) {
+      photoList.classList.add('modal-open');
+    } else {
+      photoList.classList.remove('modal-open');
+    }
+
+    return () => {
+      photoList.classList.remove('modal-open');
+    };
+  }, [isModalOpen]);
 
   const handleClose = () => {
     dispatch(closeModal());
   };
 
+  const handleLikeToggle = () => {
+    dispatch({ type: 'TOGGLE_LIKE', payload: id });
+  };
+
   return (
-    <div className="photo-details-modal">
-      <div className="photo-details-modal__top-bar">
-        <button className="photo-details-modal__close-button" onClick={handleClose}>
-          <img src={closeSymbol} alt="close symbol" />
-        </button>
-      </div>
+    <div className="photo-details-modal" >
+
+      <button className="photo-details-modal__close-button" onClick={handleClose}>
+        <img src={closeSymbol} alt="close symbol" />
+      </button>
+
       {selectedPhoto && (
-        <div className="photo-details-modal__content">
+        <>
+          <PhotoFavButton
+            photoId={selectedPhoto.id}
+            onClick={handleLikeToggle}
+            isLiked={state.likedPhotoIDs.includes(selectedPhoto.id)}
+          />
           <img src={selectedPhoto.urls.full} className="photo-details-modal__image" />
-          <div className="photo-details-modal__header">{selectedPhoto.description}</div>
+          <div className="photo-details-modal__top-bar" />
+
           <div className="photo-details-modal__photographer-details">
-            <img
-              src={selectedPhoto.user.profile} className="photo-details-modal__photographer-profile" />
-            <div className="photo-details-modal__photographer-info">
+            <img src={selectedPhoto.user.profile} className="photo-details-modal__photographer-profile" />
+
+            <section className="photo-details-modal__photographer-info">
+              {selectedPhoto.user.username}
+
               <div className="photo-details-modal__photographer-location">
                 {selectedPhoto.location.city}, {selectedPhoto.location.country}
               </div>
-              <div className="photo-details-modal__photographer-info">
-                {selectedPhoto.user.username}
+            </section>
+          </div>
+          {selectedPhoto.similar_photos && (
+            <div>
+              <div className="photo-details-modal__header">Similar Photos</div>
+              <div className="photo-details-modal__images">
+                <PhotoList data={similarPhotos} />
               </div>
             </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
     </div>
   )
+
 };
 
 export default PhotoDetailsModal;

@@ -12,3 +12,7 @@
   flex: 0 1 30%;
   margin: 5px;
 }
+
+.photo-list.modal-open {
+  pointer-events: none;
+}
