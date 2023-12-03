@@ -8,7 +8,8 @@ const GlobalContext = createContext();
 const initialState = {
   likedPhotoIDs: [],
   likedPhotosCount: 0,
-  isModalOpen: false
+  isModalOpen: false,
+  selectedPhoto: null
 };
 
 const globalReducer = (state, action) => {
@@ -31,11 +32,13 @@ const globalReducer = (state, action) => {
       return {
         ...state,
         isModalOpen: true,
+        selectedPhoto: action.payload,
       };
     case 'CLOSE_MODAL':
       return {
         ...state,
         isModalOpen: false,
+        selectedPhoto: null
       };
 
     default:
@@ -83,5 +86,5 @@ const App = () => {
 };
 
 export { useGlobalContext, GlobalProvider, App as default };
-export const openModal = () => ({ type: 'OPEN_MODAL' });
+export const openModal = (photo) => ({ type: 'OPEN_MODAL', payload: photo });
 export const closeModal = () => ({ type: 'CLOSE_MODAL' });

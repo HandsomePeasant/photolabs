@@ -15,7 +15,7 @@ const PhotoListItem = ({ data }) => {
   };
 
   const handlePhotoClick = () => {
-    dispatch(openModal());
+    dispatch(openModal(data));
   };
 
   return (
