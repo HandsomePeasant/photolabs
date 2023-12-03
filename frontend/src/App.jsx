@@ -2,13 +2,15 @@ import React, { createContext, useReducer, useContext } from 'react';
 import PhotoList from './components/PhotoList';
 import TopNavigation from './components/TopNavigationBar';
 import photos from './mocks/photos';
+import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import './App.scss';
 
 const GlobalContext = createContext();
 
 const initialState = {
   likedPhotoIDs: [],
-  likedPhotosCount: 0
+  likedPhotosCount: 0,
+  isModalOpen: false
 };
 
 const globalReducer = (state, action) => {
@@ -25,6 +27,17 @@ const globalReducer = (state, action) => {
         likedPhotosCount: isLiked
           ? state.likedPhotosCount - 1
           : state.likedPhotosCount + 1
+      };
+
+    case 'OPEN_MODAL':
+      return {
+        ...state,
+        isModalOpen: true,
+      };
+    case 'CLOSE_MODAL':
+      return {
+        ...state,
+        isModalOpen: false,
       };
 
     default:
@@ -52,15 +65,26 @@ const useGlobalContext = () => {
   return context;
 };
 
-const App = () => {
+const AppContent = () => {
+  const { state } = useGlobalContext();
+
   return (
-    <GlobalProvider>
       <div className="App">
         <TopNavigation />
         <PhotoList data={photos} />
+        {state.isModalOpen && <PhotoDetailsModal />}
       </div>
+  );
+};
+
+const App = () => {
+  return (
+    <GlobalProvider>
+      <AppContent />
     </GlobalProvider>
   );
 };
 
-export { useGlobalContext, App as default };
+export { useGlobalContext, GlobalProvider, App as default };
+export const openModal = () => ({ type: 'OPEN_MODAL' });
+export const closeModal = () => ({ type: 'CLOSE_MODAL' });
