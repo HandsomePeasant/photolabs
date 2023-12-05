@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { useGlobalContext, closeModal } from '../App';
+import { useGlobalContext } from 'components/GlobalProvider';
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from '../components/PhotoList';
 import PhotoFavButton from '../components/PhotoFavButton';
 
 const PhotoDetailsModal = () => {
-  const { state, dispatch } = useGlobalContext();
+  const { state, dispatch, closeModal } = useGlobalContext();
   const { isModalOpen, selectedPhoto } = state;
   const similarPhotos = Object.values(selectedPhoto.similar_photos);
 
@@ -25,7 +25,7 @@ const PhotoDetailsModal = () => {
   }, [isModalOpen]);
 
   const handleClose = () => {
-    dispatch(closeModal());
+    dispatch({ type: 'CLOSE_MODAL' });
   };
 
   const handleLikeToggle = () => {

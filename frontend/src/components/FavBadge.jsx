@@ -1,7 +1,6 @@
 import React from 'react';
 import FavIcon from './FavIcon';
-import { useGlobalContext } from '../App';
-
+import { useGlobalContext } from './GlobalProvider';
 import '../styles/FavBadge.scss';
 
 const FavBadge = () => {

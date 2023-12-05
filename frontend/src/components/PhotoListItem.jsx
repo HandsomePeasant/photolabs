@@ -1,6 +1,6 @@
 import React from "react";
 import PhotoFavButton from './PhotoFavButton';
-import { useGlobalContext, openModal } from '../App';
+import { useGlobalContext } from './GlobalProvider';
 import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = ({ data }) => {
@@ -15,7 +15,7 @@ const PhotoListItem = ({ data }) => {
   };
 
   const handlePhotoClick = () => {
-    dispatch(openModal(data));
+    dispatch({ type: 'OPEN_MODAL', payload: data });
   };
 
   return (
