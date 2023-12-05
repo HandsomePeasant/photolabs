@@ -1,7 +1,7 @@
 import React from "react";
 import { useGlobalContext } from './GlobalProvider';
-import PhotoDetailsModal from "routes/PhotoDetailsModal";
-import HomeRoute from "routes/HomeRoute";
+import PhotoDetailsModal from "../routes/PhotoDetailsModal";
+import HomeRoute from "../routes/HomeRoute";
 
 const AppContent = () => {
   const { state } = useGlobalContext();

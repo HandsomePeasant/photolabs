@@ -1,6 +1,6 @@
 import React from 'react';
-import AppContent from 'components/AppContent';
-import { GlobalProvider } from 'components/GlobalProvider';
+import AppContent from './components/AppContent';
+import { GlobalProvider } from './components/GlobalProvider';
 import './App.scss';
 
 const initialState = {

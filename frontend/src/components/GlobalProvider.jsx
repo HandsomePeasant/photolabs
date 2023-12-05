@@ -1,5 +1,5 @@
 import React, { useContext, createContext, useReducer } from "react";
-import useApplicationData from "hooks/useApplicationData";
+import useApplicationData from "../hooks/useApplicationData";
 
 const GlobalContext = createContext();
 
