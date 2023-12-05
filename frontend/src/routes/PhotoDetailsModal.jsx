@@ -6,13 +6,13 @@ import PhotoList from '../components/PhotoList';
 import PhotoFavButton from '../components/PhotoFavButton';
 
 const PhotoDetailsModal = () => {
-  const { state, dispatch, closeModal } = useGlobalContext();
+  const { state, dispatch } = useGlobalContext();
   const { isModalOpen, selectedPhoto } = state;
   const similarPhotos = Object.values(selectedPhoto.similar_photos);
 
   useEffect(() => {
     const photoList = document.querySelector('.photo-list');
-    
+
     if (isModalOpen) {
       photoList.classList.add('modal-open');
     } else {
@@ -37,14 +37,16 @@ const PhotoDetailsModal = () => {
 
       {selectedPhoto && (
         <>
-        <button className="photo-details-modal__close-button" onClick={handleClose}>
-        <img src={closeSymbol} alt="close symbol" />
-      </button>
-          <PhotoFavButton
-            photoId={selectedPhoto.id}
-            onClick={handleLikeToggle}
-            isLiked={state.likedPhotoIDs.includes(selectedPhoto.id)}
-          />
+          <button className="photo-details-modal__close-button" onClick={handleClose}>
+            <img src={closeSymbol} alt="close symbol" />
+          </button>
+          <div id={isModalOpen ? 'modal-style' : ''}>
+            <PhotoFavButton
+              photoId={selectedPhoto.id}
+              onClick={handleLikeToggle}
+              isLiked={state.likedPhotoIDs.includes(selectedPhoto.id)}
+            />
+          </div>
           <img src={selectedPhoto.urls.full} className="photo-details-modal__image" />
           <div className="photo-details-modal__top-bar" />
 
