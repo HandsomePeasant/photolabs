@@ -1,5 +1,5 @@
 import React, { useContext, createContext, useReducer } from "react";
-import useGlobalReducer from "hooks/useGlobalReducer";
+import useApplicationData from "hooks/useApplicationData";
 
 const GlobalContext = createContext();
 
@@ -14,7 +14,7 @@ const useGlobalContext = () => {
 };
 
 const GlobalProvider = ({ initialState, children }) => {
-  const [state, dispatch] = useReducer(useGlobalReducer, initialState);
+  const [state, dispatch] = useReducer(useApplicationData, initialState);
 
   return (
     <GlobalContext.Provider value={{ state, dispatch }}>

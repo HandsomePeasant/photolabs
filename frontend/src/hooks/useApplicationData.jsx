@@ -1,4 +1,4 @@
-const useGlobalReducer = (state, action) => {
+const useApplicationData = (state, action) => {
   switch (action.type) {
     case 'TOGGLE_LIKE':
       const photoId = action.payload;
@@ -33,4 +33,4 @@ const useGlobalReducer = (state, action) => {
   }
 };
 
-export default useGlobalReducer;
+export default useApplicationData;
