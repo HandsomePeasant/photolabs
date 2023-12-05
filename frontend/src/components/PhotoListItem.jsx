@@ -19,7 +19,7 @@ const PhotoListItem = ({ data }) => {
   };
 
   return (
-      <div className="photo-list__item" >
+      <li className="photo-list__item" >
         <PhotoFavButton photoId={id} onClick={handleLikeToggle} isLiked={isLiked} />
         <img src={imageSource} className="photo-list__image" onClick={handlePhotoClick} />
         <div className="photo-list__user-info">
@@ -27,7 +27,7 @@ const PhotoListItem = ({ data }) => {
           <p className="photo-list__user-details">{username}</p>
           <p className="photo-list__user-location">{location.city}, {location.country}</p>
         </div>
-      </div>
+      </li>
   );
 };
 

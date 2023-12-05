@@ -35,12 +35,11 @@ const PhotoDetailsModal = () => {
   return (
     <div className="photo-details-modal" >
 
-      <button className="photo-details-modal__close-button" onClick={handleClose}>
-        <img src={closeSymbol} alt="close symbol" />
-      </button>
-
       {selectedPhoto && (
         <>
+        <button className="photo-details-modal__close-button" onClick={handleClose}>
+        <img src={closeSymbol} alt="close symbol" />
+      </button>
           <PhotoFavButton
             photoId={selectedPhoto.id}
             onClick={handleLikeToggle}
