@@ -14,6 +14,7 @@ const PhotoList = ({ photos, toggleLike, isLiked, openModal }) => {
           location={photo.location}
           openModal={() => openModal(photo)}
           isLiked={isLiked}
+          photo={photo}
         />
       ))}
     </ul>
