@@ -1,21 +1,39 @@
 import React from 'react';
-import AppContent from './components/AppContent';
-import { GlobalProvider } from './components/GlobalProvider';
+import useApplicationData from './hooks/useApplicationData';
+import HomeRoute from './routes/HomeRoute';
+import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import './App.scss';
-
-const initialState = {
-  likedPhotoIDs: [],
-  likedPhotosCount: 0,
-  isModalOpen: false,
-  selectedPhoto: null
-};
 
 const App = () => {
 
+  const {
+    isModalOpen,
+    selectedPhoto,
+    isLiked,
+    toggleLike,
+    openModal,
+    closeModal,
+    likedPhotosCount,
+    photoData,
+    topicData,
+  } = useApplicationData();
+
   return (
-    <GlobalProvider initialState={initialState}>
-      <AppContent/>
-    </GlobalProvider>
+    <div>
+      <HomeRoute photoData={photoData} topicData={topicData} openModal={openModal} isLiked={isLiked} toggleLike={toggleLike} likedPhotosCount={likedPhotosCount}/>
+      {isModalOpen &&
+        <PhotoDetailsModal
+          photo={selectedPhoto}
+          toggleLike={toggleLike}
+          handleClose={() => {
+            closeModal();
+          }}
+          similarPhotos={Object.values(selectedPhoto.similar_photos)}
+          isModalOpen={isModalOpen}
+          isLiked={isLiked}
+        />
+      }
+    </div>
   );
 };
 
