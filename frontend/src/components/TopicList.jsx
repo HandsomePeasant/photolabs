@@ -2,11 +2,11 @@ import React from "react";
 import TopicListItem from './TopicListItem';
 import "../styles/TopicList.scss";
 
-const TopicList = ({data}) => {
+const TopicList = ({topicData, fetchPhotosByTopic}) => {
   return (
     <div className="top-nav-bar__topic-list">
-      {data.map((item) => (
-        <TopicListItem key={item.id} data={item} />
+      {topicData.map((topic) => (
+        <TopicListItem key={topic.id} topic={topic} fetchPhotosByTopic={fetchPhotosByTopic}/>
       ))}
     </div>
   );

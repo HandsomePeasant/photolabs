@@ -2,11 +2,19 @@ import React from "react";
 import PhotoListItem from './PhotoListItem';
 import "../styles/PhotoList.scss";
 
-const PhotoList = ({data}) => {
+const PhotoList = ({ photos, toggleLike, isLiked, openModal }) => {
   return (
     <ul className="photo-list">
-      {data.map((item) => (
-        <PhotoListItem key={item.id} data={item} />
+      {photos.map((photo) => (
+        <PhotoListItem key={photo.id}
+          toggleLike={toggleLike}
+          imageSource={photo.urls.regular}
+          profile={photo.user.profile}
+          username={photo.user.name}
+          location={photo.location}
+          openModal={() => openModal(photo)}
+          isLiked={isLiked}
+        />
       ))}
     </ul>
   );
