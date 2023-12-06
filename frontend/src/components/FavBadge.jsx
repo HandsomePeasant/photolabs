@@ -2,11 +2,11 @@ import React from 'react';
 import FavIcon from './FavIcon';
 import '../styles/FavBadge.scss';
 
-const FavBadge = (isLiked, likedPhotosCount) => {
+const FavBadge = ({likedPhotosCount}) => {
 
   return (
     <div className='fav-badge'>
-      <FavIcon selected={likedPhotosCount > 0} />
+      <FavIcon selected={likedPhotosCount > 0} displayAlert={likedPhotosCount > 0}/>
       {likedPhotosCount > 0 && (
         <div className='fav-badge__count'>
           <span>{likedPhotosCount}</span>
