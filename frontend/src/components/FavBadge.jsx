@@ -1,11 +1,8 @@
 import React from 'react';
 import FavIcon from './FavIcon';
-import { useGlobalContext } from './GlobalProvider';
 import '../styles/FavBadge.scss';
 
-const FavBadge = () => {
-  const { state } = useGlobalContext();
-  const { likedPhotosCount } = state;
+const FavBadge = (isLiked, likedPhotosCount) => {
 
   return (
     <div className='fav-badge'>
