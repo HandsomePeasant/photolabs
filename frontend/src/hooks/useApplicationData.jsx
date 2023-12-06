@@ -1,5 +1,29 @@
-const useApplicationData = (state, action) => {
+import { useEffect, useReducer } from "react";
+
+const initialState = {
+  likedPhotoIDs: [],
+  likedPhotosCount: 0,
+  isModalOpen: false,
+  selectedPhoto: null,
+  photoData: [],
+  topicData: []
+};
+
+const appReducer = (state, action) => {
   switch (action.type) {
+
+    case 'SET_PHOTO_DATA':
+    return {
+      ...state,
+      photoData: action.payload
+    };
+
+    case "SET_TOPIC_DATA":
+      return {
+        ...state,
+        topicData: action.payload,
+      };
+
     case 'TOGGLE_LIKE':
       const photoId = action.payload;
       const isLiked = state.likedPhotoIDs.includes(photoId);
@@ -32,5 +56,77 @@ const useApplicationData = (state, action) => {
       return state;
   }
 };
+
+function useApplicationData() {
+  const [state, dispatch] = useReducer(appReducer, initialState);
+  const ACTIONS = {
+    SET_PHOTO_DATA: "SET_PHOTO_DATA",
+    SET_TOPIC_DATA: "SET_TOPIC_DATA",
+    TOGGLE_LIKE: "TOGGLE_LIKE",
+  };
+
+  const apiUrl = "http://localhost:8001/api";
+
+  useEffect(() => {
+    fetch(`${apiUrl}/photos`)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error("Error fetching photos:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`${apiUrl}/topics`)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error("Error fetching topics:", error);
+      });
+    }, []);
+
+    const fetchPhotosByTopic = (topicId) => {
+      fetch(`${apiUrl}/topics/photos/${topicId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+        })
+        .catch((error) => {
+          console.error('Error fetching photos:', error);
+        });
+    };
+
+  const { photoData, topicData, isModalOpen, selectedPhoto, isLiked, likedPhotoIDs, likedPhotosCount } = state;
+
+  const toggleLike = (photoId) => {
+    dispatch({ type: "TOGGLE_LIKE", payload: photoId });
+  };
+
+  const openModal = (photo) => {
+    dispatch({ type: "OPEN_MODAL", payload: photo });
+  };
+
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
+  };
+
+  return {
+    photoData,
+    topicData,
+    isModalOpen,
+    selectedPhoto,
+    isLiked,
+    toggleLike,
+    openModal,
+    closeModal,
+    likedPhotoIDs,
+    likedPhotosCount,
+    fetchPhotosByTopic,
+  };
+}
 
 export default useApplicationData;
