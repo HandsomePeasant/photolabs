@@ -4,14 +4,13 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from '../components/PhotoList';
 import PhotoFavButton from '../components/PhotoFavButton';
 
-const PhotoDetailsModal = ({ photo, handleClose, toggleLike, isModalOpen, likedPhotosCount, likedPhotoIDs, openModal, photoId }) => {
+const PhotoDetailsModal = ({ photo, closeModal, toggleLike, isModalOpen, likedPhotosCount, likedPhotoIDs, openModal, photoId }) => {
   const similarPhotos = photo.similar_photos;
 
   return (
     <div className="photo-details-modal" >
-
       <>
-        <button className="photo-details-modal__close-button" onClick={handleClose}>
+        <button className="photo-details-modal__close-button" onClick={() => { closeModal(); }}>
           <img src={closeSymbol} alt="close symbol" />
         </button>
         <div id={isModalOpen ? 'modal-style' : ''}>

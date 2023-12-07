@@ -3,6 +3,8 @@ import useApplicationData from './hooks/useApplicationData';
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import './App.scss';
+import ModalBackdrop from './components/ModalBackdrop';
+
 
 const App = () => {
 
@@ -34,13 +36,12 @@ const App = () => {
       />
       {isModalOpen && 
         <>
+          <ModalBackdrop onClick={() => { closeModal(); }} />
           <PhotoDetailsModal
-          photo={selectedPhoto}
+            photo={selectedPhoto}
             photoId={selectedPhoto.id}
             toggleLike={toggleLike}
-            handleClose={() => {
-              closeModal();
-            }}
+            closeModal={closeModal}
             isModalOpen={isModalOpen}
             likedPhotosCount={likedPhotosCount}
             likedPhotoIDs={likedPhotoIDs}
