@@ -1,16 +1,24 @@
 .photo-details-modal {
+  display: relative;
   background-color: white;
   box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
-  position: absolute;
-  top: 45%;
+  position: fixed;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -40%);
   height: 80%;
   max-width: 40%;
   width: auto;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-radius: 12px;
   z-index: 101;
+}
+
+@media (max-width: 768px) {
+  .photo-details-modal {
+    width: 90%;
+    max-width: none;
+  }
 }
 
 .photo-details-modal__close-button {
@@ -33,11 +41,13 @@
 }
 
 .photo-details-modal__image {
-  max-width: 90%;
-  max-height: 60%;
+  display: block;
   width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
   border-radius: 8px;
-  margin-left: 36px;
+  margin: 0 auto;
 }
 
 .photo-details-modal__top-bar {
@@ -82,4 +92,13 @@
   font-weight: 700;
   font-size: 12px;
   margin-left: 8px;
+}
+
+.photo-details-modal__image-container {
+  position: relative;
+  width: auto;
+  height: auto;
+  max-width: 75%;
+  max-height: 50%;
+  margin: 0 auto;
 }

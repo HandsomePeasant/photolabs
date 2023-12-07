@@ -14,13 +14,16 @@ const PhotoDetailsModal = ({ photo, closeModal, toggleLike, isModalOpen, likedPh
           <img src={closeSymbol} alt="close symbol" />
         </button>
         <div id={isModalOpen ? 'modal-style' : ''}>
-          <PhotoFavButton
-            photoId={photoId}
-            toggleLike={toggleLike}
-            likedPhotoIDs={likedPhotoIDs}
-          />
+          <div className="photo-details-modal__image-container">
+            <PhotoFavButton
+              photoId={photoId}
+              toggleLike={toggleLike}
+              likedPhotoIDs={likedPhotoIDs}
+            />
+            <img src={photo.urls.full} className="photo-details-modal__image" />
+          </div>
         </div>
-        <img src={photo.urls.full} className="photo-details-modal__image" />
+        
         <div className="photo-details-modal__top-bar" />
 
         <div className="photo-details-modal__photographer-details">
