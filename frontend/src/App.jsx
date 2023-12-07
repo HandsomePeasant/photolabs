@@ -32,19 +32,19 @@ const App = () => {
         selectedPhoto={selectedPhoto}
         fetchTopicPhotos={fetchTopicPhotos}
       />
-      {isModalOpen && selectedPhoto &&
+      {isModalOpen && 
         <>
           <PhotoDetailsModal
-            photo={selectedPhoto}
+          photo={selectedPhoto}
             photoId={selectedPhoto.id}
             toggleLike={toggleLike}
             handleClose={() => {
               closeModal();
             }}
-            similarPhotos={Object.values(selectedPhoto.similar_photos)}
             isModalOpen={isModalOpen}
             likedPhotosCount={likedPhotosCount}
             likedPhotoIDs={likedPhotoIDs}
+            openModal={openModal}
           />
         </>
       }

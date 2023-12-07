@@ -3,7 +3,7 @@ import TopNavigation from '../components/TopNavigationBar';
 import PhotoList from '../components/PhotoList';
 import '../styles/HomeRoute.scss';
 
-const HomeRoute = ({photoData, topicData, openModal, isModalOpen, toggleLike, likedPhotosCount, likedPhotoIDs, selectedPhoto, fetchTopicPhotos}) => {
+const HomeRoute = ({photoData, topicData, openModal, isModalOpen, toggleLike, likedPhotosCount, likedPhotoIDs, selectedPhoto, fetchTopicPhotos, similarPhotos}) => {
 
   return (
       <div className="home-route">
