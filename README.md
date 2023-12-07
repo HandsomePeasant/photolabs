@@ -3,6 +3,10 @@ PhotoLabs is a React-based SPA (single-page app) that allows users to view & lik
 
 # Photolabs
 
+!["View of the main landing page"](https://github.com/HandsomePeasant/photolabs/blob/main/docs/photolabs1.png?raw=true)
+
+!["View of the modal accessible upon clicking any photo"](https://github.com/HandsomePeasant/photolabs/blob/main/docs/photolabs2.png?raw=true)
+
 ## Setup
 
 Install dependencies with `npm install` in each respective `/frontend` and `/backend`.
