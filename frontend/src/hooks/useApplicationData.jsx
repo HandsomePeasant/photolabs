@@ -58,8 +58,35 @@ const appReducer = (state, action) => {
   }
 };
 
+const saveToLocalStorage = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem("appState", serializedState);
+  } catch (error) {
+    console.error("Error saving state to localStorage:", error);
+  }
+};
+
+const loadFromLocalStorage = () => {
+  try {
+    const serializedState = localStorage.getItem("appState");
+    if (serializedState === null) {
+      return initialState;
+    }
+    return JSON.parse(serializedState);
+  } catch (error) {
+    console.error("Error loading state from localStorage:", error);
+    return initialState;
+  }
+};
+
 function useApplicationData() {
-  const [state, dispatch] = useReducer(appReducer, initialState);
+  const [state, dispatch] = useReducer(appReducer, initialState, loadFromLocalStorage);
+
+  useEffect(() => {
+    saveToLocalStorage(state);
+  }, [state]);
+
   const ACTIONS = {
     SET_PHOTO_DATA: "SET_PHOTO_DATA",
     SET_TOPIC_DATA: "SET_TOPIC_DATA",
