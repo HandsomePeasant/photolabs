@@ -23,7 +23,7 @@ const PhotoDetailsModal = ({ photo, closeModal, toggleLike, isModalOpen, likedPh
             <img src={photo.urls.full} className="photo-details-modal__image" />
           </div>
         </div>
-        
+
         <div className="photo-details-modal__top-bar" />
 
         <div className="photo-details-modal__photographer-details">

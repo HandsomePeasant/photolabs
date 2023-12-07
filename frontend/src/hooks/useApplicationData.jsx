@@ -13,10 +13,10 @@ const appReducer = (state, action) => {
   switch (action.type) {
 
     case 'SET_PHOTO_DATA':
-    return {
-      ...state,
-      photoData: action.payload
-    };
+      return {
+        ...state,
+        photoData: action.payload
+      };
 
     case "SET_TOPIC_DATA":
       return {
@@ -28,6 +28,7 @@ const appReducer = (state, action) => {
       const photoId = action.payload;
       const isLiked = state.likedPhotoIDs.includes(photoId);
 
+      // Check if photo is liked, then toggle the status -- either add the photoId to the tracking array, or remove it
       return {
         ...state,
         likedPhotoIDs: isLiked
@@ -67,6 +68,7 @@ function useApplicationData() {
 
   const apiUrl = "http://localhost:8001/api";
 
+  // Fetch photos from the backend, store them in a global variable
   useEffect(() => {
     fetch(`${apiUrl}/photos`)
       .then((response) => response.json())
@@ -78,6 +80,7 @@ function useApplicationData() {
       });
   }, []);
 
+  // Fetch topics from the backend, store them in a global variable
   useEffect(() => {
     fetch(`${apiUrl}/topics`)
       .then((response) => response.json())
@@ -87,20 +90,21 @@ function useApplicationData() {
       .catch((error) => {
         console.error("Error fetching topics:", error);
       });
-    }, []);
+  }, []);
 
-    const fetchTopicPhotos = (topicId) => {
-      fetch(`${apiUrl}/topics/photos/${topicId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
-        })
-        .catch((error) => {
-          console.error('Error fetching photos:', error);
-        });
-    };
+  // When a topic in the nav bar is clicked, display photos of the relevant type
+  const fetchTopicPhotos = (topicId) => {
+    fetch(`${apiUrl}/topics/photos/${topicId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error('Error fetching photos:', error);
+      });
+  };
 
-  const { photoData, topicData, isModalOpen, selectedPhoto, isLiked, likedPhotoIDs, likedPhotosCount } = state;
+  const { photoData, topicData, isModalOpen, selectedPhoto, likedPhotoIDs, likedPhotosCount } = state;
 
   const toggleLike = (photoId) => {
     dispatch({ type: "TOGGLE_LIKE", payload: photoId });
@@ -119,7 +123,6 @@ function useApplicationData() {
     topicData,
     isModalOpen,
     selectedPhoto,
-    isLiked,
     toggleLike,
     openModal,
     closeModal,

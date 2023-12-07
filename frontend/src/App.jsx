@@ -2,12 +2,10 @@ import React from 'react';
 import useApplicationData from './hooks/useApplicationData';
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
-import './App.scss';
 import ModalBackdrop from './components/ModalBackdrop';
 
-
 const App = () => {
-
+  // Initialize all the variables that will be used throughout the app
   const {
     isModalOpen,
     selectedPhoto,
@@ -34,7 +32,7 @@ const App = () => {
         selectedPhoto={selectedPhoto}
         fetchTopicPhotos={fetchTopicPhotos}
       />
-      {isModalOpen && 
+      {isModalOpen &&
         <>
           <ModalBackdrop onClick={() => { closeModal(); }} />
           <PhotoDetailsModal
