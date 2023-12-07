@@ -1,16 +1,14 @@
 import React from 'react';
-import useApplicationData from '../hooks/useApplicationData';
 import TopNavigation from '../components/TopNavigationBar';
 import PhotoList from '../components/PhotoList';
 import '../styles/HomeRoute.scss';
 
-const HomeRoute = (data) => {
-  const { photoData, topicData, toggleLike, isLiked, likedPhotosCount, fetchPhotosByTopic } = useApplicationData();
+const HomeRoute = ({photoData, topicData, openModal, isModalOpen, toggleLike, likedPhotosCount, likedPhotoIDs, selectedPhoto, fetchTopicPhotos}) => {
 
   return (
       <div className="home-route">
-        <TopNavigation isLiked={isLiked} likedPhotosCount={likedPhotosCount} topicData={topicData} fetchPhotosByTopic={fetchPhotosByTopic}/>
-        <PhotoList photos={photoData} topics={topicData} toggleLike={toggleLike} openModal={data.openModal} isLiked={isLiked} />
+        <TopNavigation likedPhotosCount={likedPhotosCount} topicData={topicData} fetchTopicPhotos={fetchTopicPhotos}/>
+        <PhotoList photos={photoData} topics={topicData} toggleLike={toggleLike} openModal={openModal} isModalOpen={isModalOpen} selectedPhoto={selectedPhoto} likedPhotosCount={likedPhotosCount} likedPhotoIDs={likedPhotoIDs} />
       </div>
   );
 };

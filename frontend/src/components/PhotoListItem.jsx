@@ -2,12 +2,12 @@ import React from "react";
 import PhotoFavButton from './PhotoFavButton';
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = ({ toggleLike, isLiked, imageSource, profile, username, location, openModal, photo }) => {
+const PhotoListItem = ({ toggleLike, imageSource, profile, username, location, openModal, photo, likedPhotosCount, likedPhotoIDs, photoId, isModalOpen }) => {
 
   return (
       <li className="photo-list__item" >
-        <PhotoFavButton photoId={photo.id} isLiked={isLiked} toggleLike={toggleLike}/>
-        <img src={imageSource} className="photo-list__image" onClick={openModal} />
+        <PhotoFavButton photoId={photoId} toggleLike={toggleLike} likedPhotosCount={likedPhotosCount} likedPhotoIDs={likedPhotoIDs} />
+        <img src={imageSource} className="photo-list__image" onClick={() => openModal(photo)} />
         <div className="photo-list__user-info">
           <img src={profile} className="photo-list__user-profile" />
           <p className="photo-list__user-details">{username}</p>

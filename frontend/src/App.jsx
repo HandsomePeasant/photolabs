@@ -9,29 +9,44 @@ const App = () => {
   const {
     isModalOpen,
     selectedPhoto,
-    isLiked,
     toggleLike,
     openModal,
     closeModal,
     likedPhotosCount,
     photoData,
     topicData,
+    likedPhotoIDs,
+    fetchTopicPhotos
   } = useApplicationData();
 
   return (
     <div>
-      <HomeRoute photoData={photoData} topicData={topicData} openModal={openModal} isLiked={isLiked} toggleLike={toggleLike} likedPhotosCount={likedPhotosCount}/>
-      {isModalOpen &&
-        <PhotoDetailsModal
-          photo={selectedPhoto}
-          toggleLike={toggleLike}
-          handleClose={() => {
-            closeModal();
-          }}
-          similarPhotos={Object.values(selectedPhoto.similar_photos)}
-          isModalOpen={isModalOpen}
-          isLiked={isLiked}
-        />
+      <HomeRoute
+        photoData={photoData}
+        topicData={topicData}
+        openModal={openModal}
+        isModalOpen={isModalOpen}
+        toggleLike={toggleLike}
+        likedPhotosCount={likedPhotosCount}
+        likedPhotoIDs={likedPhotoIDs}
+        selectedPhoto={selectedPhoto}
+        fetchTopicPhotos={fetchTopicPhotos}
+      />
+      {isModalOpen && selectedPhoto &&
+        <>
+          <PhotoDetailsModal
+            photo={selectedPhoto}
+            photoId={selectedPhoto.id}
+            toggleLike={toggleLike}
+            handleClose={() => {
+              closeModal();
+            }}
+            similarPhotos={Object.values(selectedPhoto.similar_photos)}
+            isModalOpen={isModalOpen}
+            likedPhotosCount={likedPhotosCount}
+            likedPhotoIDs={likedPhotoIDs}
+          />
+        </>
       }
     </div>
   );

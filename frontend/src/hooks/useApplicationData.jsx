@@ -89,7 +89,7 @@ function useApplicationData() {
       });
     }, []);
 
-    const fetchPhotosByTopic = (topicId) => {
+    const fetchTopicPhotos = (topicId) => {
       fetch(`${apiUrl}/topics/photos/${topicId}`)
         .then((response) => response.json())
         .then((data) => {
@@ -125,7 +125,7 @@ function useApplicationData() {
     closeModal,
     likedPhotoIDs,
     likedPhotosCount,
-    fetchPhotosByTopic,
+    fetchTopicPhotos,
   };
 }
 
