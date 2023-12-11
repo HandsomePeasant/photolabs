@@ -1,0 +1,28 @@
+.liked-photos-modal {
+  display: relative;
+  background-color: white;
+  box-shadow: 0 0 0 50vmax rgba(0, 0, 0, .5);
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  height: 80%;
+  max-width: 40%;
+  width: auto;
+  overflow-y: auto;
+  border-radius: 12px;
+  z-index: 101;
+}
+
+.liked-photos-modal__close-button {
+  background-color: white;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 16px;
+  margin-top: 16px;
+}

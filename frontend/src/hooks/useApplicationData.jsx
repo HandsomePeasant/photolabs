@@ -6,7 +6,8 @@ const initialState = {
   isModalOpen: false,
   selectedPhoto: null,
   photoData: [],
-  topicData: []
+  topicData: [],
+  modalType: null
 };
 
 const appReducer = (state, action) => {
@@ -39,18 +40,28 @@ const appReducer = (state, action) => {
           : state.likedPhotosCount + 1
       };
 
-    case 'OPEN_MODAL':
-      return {
-        ...state,
-        isModalOpen: true,
-        selectedPhoto: action.payload,
-      };
+      case 'OPEN_MODAL':
+        const { payload, modalType } = action;
+        return {
+          ...state,
+          isModalOpen: true,
+          selectedPhoto: payload,
+          modalType
+        };
+
+        case 'OPEN_LIKED_PHOTOS_MODAL':
+          return {
+            ...state,
+            isModalOpen: true,
+            modalType: 'likedPhotos',
+          };
 
     case 'CLOSE_MODAL':
       return {
         ...state,
         isModalOpen: false,
-        selectedPhoto: null
+        selectedPhoto: null,
+        modalType: null
       };
 
     default:
@@ -91,6 +102,7 @@ function useApplicationData() {
     SET_PHOTO_DATA: "SET_PHOTO_DATA",
     SET_TOPIC_DATA: "SET_TOPIC_DATA",
     TOGGLE_LIKE: "TOGGLE_LIKE",
+    OPEN_LIKED_PHOTOS_MODAL: "OPEN_LIKED_PHOTOS_MODAL"
   };
 
   const apiUrl = "http://localhost:8001/api";
@@ -137,8 +149,12 @@ function useApplicationData() {
     dispatch({ type: "TOGGLE_LIKE", payload: photoId });
   };
 
-  const openModal = (photo) => {
-    dispatch({ type: "OPEN_MODAL", payload: photo });
+  const openModal = (photo, modalType = "photo") => {
+    if (modalType === "photo") {
+      dispatch({ type: "OPEN_MODAL", payload: photo });
+    } else if (modalType === "likedPhotos") {
+      dispatch({ type: ACTIONS.OPEN_LIKED_PHOTOS_MODAL });
+    }
   };
 
   const closeModal = () => {

@@ -3,6 +3,7 @@ import useApplicationData from './hooks/useApplicationData';
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import ModalBackdrop from './components/ModalBackdrop';
+import LikedPhotosModal from './routes/LikedPhotosModal';
 
 const App = () => {
   // Initialize all the variables that will be used throughout the app
@@ -16,7 +17,8 @@ const App = () => {
     photoData,
     topicData,
     likedPhotoIDs,
-    fetchTopicPhotos
+    fetchTopicPhotos,
+    modalType
   } = useApplicationData();
 
   return (
@@ -32,21 +34,32 @@ const App = () => {
         selectedPhoto={selectedPhoto}
         fetchTopicPhotos={fetchTopicPhotos}
       />
-      {isModalOpen &&
+
+{isModalOpen && (
         <>
           <ModalBackdrop onClick={() => { closeModal(); }} />
-          <PhotoDetailsModal
-            photo={selectedPhoto}
-            photoId={selectedPhoto.id}
-            toggleLike={toggleLike}
-            closeModal={closeModal}
-            isModalOpen={isModalOpen}
-            likedPhotosCount={likedPhotosCount}
-            likedPhotoIDs={likedPhotoIDs}
-            openModal={openModal}
-          />
+          {modalType === 'likedPhotos' || selectedPhoto === null ? (
+            <LikedPhotosModal
+              likedPhotoIDs={likedPhotoIDs}
+              toggleLike={toggleLike}
+              closeModal={closeModal}
+              likedPhotosCount={likedPhotosCount}
+              photos={photoData}
+            />
+          ) : (
+            <PhotoDetailsModal
+              photo={selectedPhoto}
+              photoId={selectedPhoto.id}
+              toggleLike={toggleLike}
+              closeModal={closeModal}
+              isModalOpen={isModalOpen}
+              likedPhotosCount={likedPhotosCount}
+              likedPhotoIDs={likedPhotoIDs}
+              openModal={openModal}
+            />
+          )}
         </>
-      }
+      )}
     </div>
   );
 };

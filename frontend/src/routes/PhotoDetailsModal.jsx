@@ -40,7 +40,14 @@ const PhotoDetailsModal = ({ photo, closeModal, toggleLike, isModalOpen, likedPh
         <div>
           <div className="photo-details-modal__header">Similar Photos</div>
           <div className="photo-details-modal__images">
-            <PhotoList photos={similarPhotos} toggleLike={toggleLike} openModal={openModal} isModalOpen={isModalOpen} likedPhotosCount={likedPhotosCount} likedPhotoIDs={likedPhotoIDs} />
+            <PhotoList
+              photos={similarPhotos}
+              toggleLike={toggleLike}
+              openModal={openModal}
+              isModalOpen={isModalOpen}
+              likedPhotosCount={likedPhotosCount}
+              likedPhotoIDs={likedPhotoIDs}
+            />
           </div>
         </div>
       </>
